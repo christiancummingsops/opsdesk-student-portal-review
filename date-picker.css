@@ -1,0 +1,73 @@
+.coaching-dates .range-btn.big{height:36px; font-size:13px; padding:0 var(--space-4); border-radius:8px; gap:var(--space-2);}
+.coaching-dates .range-btn.big svg{width:var(--space-4); height:var(--space-4);}
+.coaching-dates .range-btn.big svg.dp-caret{width:var(--space-3); height:var(--space-3);}
+/* F8: 40px hit target for the topbar date-range trigger on phones (visual height stays 36px at sm+). */
+@media (width < 640px){
+.coaching-dates .range-btn.big{min-height:40px;}
+}
+.coaching-dates .dp-wrap{position:relative;}
+.coaching-dates .range-btn{
+    display:flex; align-items:center; gap:8px; height:var(--space-8); padding:0 var(--space-3);
+    white-space:nowrap;
+    font-family:'Geist Mono',monospace; font-size:12px; font-weight:500; color:var(--ink);
+    background:var(--raise); border:1px solid var(--line-2); border-radius:var(--r-sm); cursor:pointer;
+  }
+.coaching-dates .range-btn:hover{background:var(--sunk);}
+.coaching-dates .range-btn svg{width:var(--space-3); height:var(--space-3); stroke:var(--ink-3); stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+.coaching-dates .dp-pop{
+    position:absolute; left:0; top:var(--space-10); z-index:45; display:none;
+    background:var(--raise); border:1px solid var(--line-2); border-radius:var(--r-md);
+    box-shadow:0 16px 48px rgba(0,0,0,.18); overflow:hidden;
+  }
+.coaching-dates .dp-pop.open{display:flex;}
+.coaching-dates .dp-rail{
+    display:flex; flex-direction:column; gap:1px; padding:8px;
+    border-right:1px solid var(--line); background:var(--ground); min-width:128px;
+  }
+.coaching-dates .dp-rail button{
+    font-family:'Geist Mono',monospace; font-size:12px; font-weight:500; color:var(--ink-2); text-align:left;
+    background:none; border:none; border-radius:var(--r-sm); padding:var(--space-2) var(--space-3); cursor:pointer; white-space:nowrap;
+  }
+.coaching-dates .dp-rail button:hover{background:var(--sunk);}
+.coaching-dates .dp-rail button.on{background:var(--accent-soft); color:var(--accent-ink);}
+.coaching-dates .dp-main{padding:var(--space-4) var(--space-4) var(--space-3); width:284px;}
+.coaching-dates .dp-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;}
+.coaching-dates .dp-head span{font-size:13.5px; font-weight:600;}
+.coaching-dates .dp-nav{
+    width:var(--space-8); height:var(--space-8); border-radius:var(--r-sm); border:1px solid var(--line-2);
+    background:var(--raise); color:var(--ink-2); cursor:pointer; font-size:14px; line-height:1;
+  }
+.coaching-dates .dp-nav:hover{background:var(--sunk);}
+.coaching-dates .dp-dow{display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:var(--space-1);}
+.coaching-dates .dp-dow span{font-family:'Geist Mono',monospace; font-size:9.5px; color:var(--ink-3); text-align:center; text-transform:uppercase;}
+.coaching-dates .dp-grid{display:grid; grid-template-columns:repeat(7,1fr);}
+.coaching-dates .dp-grid button{
+    height:32px; border:none; background:none; border-radius:0;
+    font-family:'Geist Mono',monospace; font-size:12px; color:var(--ink); cursor:pointer;
+  }
+.coaching-dates .dp-grid button:hover{background:var(--sunk);}
+.coaching-dates .dp-grid button.out{color:var(--ink-3); opacity:.4;}
+.coaching-dates .dp-grid button.in-range{background:var(--accent-soft);}
+.coaching-dates .dp-grid button.edge{background:var(--accent); color:var(--on-accent); border-radius:var(--r-sm);}
+.coaching-dates .dp-foot{display:flex; align-items:center; gap:8px; margin-top:var(--space-3); padding-top:var(--space-3); border-top:1px solid var(--line);}
+.coaching-dates .dp-sel{font-family:'Geist Mono',monospace; font-size:11px; color:var(--ink-3); flex:1;}
+.coaching-dates .dp-btn2{
+    font-family:'Geist',sans-serif; font-size:12.5px; font-weight:500; color:var(--ink);
+    background:var(--raise); border:1px solid var(--line-2); border-radius:var(--r-sm);
+    padding:var(--space-2) var(--space-3); cursor:pointer;
+  }
+.coaching-dates .dp-btn2.primary{background:var(--accent); color:var(--on-accent); border-color:var(--accent);}
+/* Phone-only sheet mode (was 1024px, which caught MacBook windows and
+   stretched the popover full-width — T, 2026-07-19). The anchored popover is
+   ~720px wide and fits any laptop; only true small screens get the sheet. */
+/* was max-width:760px, now < --breakpoint-md 720px (#1529): -40px. The date
+   picker goes to one column 40px later. 720 carries four other queries and
+   760 only this one and its manager twin. */
+@media (width < 720px){
+.coaching-dates .dp-pop{position:fixed; left:var(--space-3); right:var(--space-3); top:64px; flex-direction:column;}
+.coaching-dates .dp-rail{flex-direction:row; overflow-x:auto; border-right:none; border-bottom:1px solid var(--line); min-width:0;}
+.coaching-dates .dp-main{width:auto;}
+}
+
+.coaching-dates{--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-8:32px;--space-10:40px;--r-sm:6px;--r-md:12px;font-family:Geist,system-ui,sans-serif;min-width:0}.coaching-dates button{font-family:inherit}.coaching-dates .dp-pop{left:auto;right:0}.coaching-dates .dp-sel{font-size:10px;line-height:1.5;min-width:0}.coaching-dates .dp-foot{flex-wrap:wrap}.coaching-dates .dp-sel{flex-basis:100%}.coaching-dates .dp-error{color:var(--danger);font-size:11px;margin:12px 0 0}.coaching-dates .dp-single-control{display:flex;gap:8px}.coaching-dates .dp-single-control input{flex:1;min-width:0}.coaching-dates .single .dp-pop{right:0}.coaching-dates .dp-grid button:focus-visible{position:relative;z-index:1;outline:2px solid var(--accent);outline-offset:-2px}.coaching-dates .dp-pop:not(.open){display:none}
+@media(max-width:719px){.coaching-dates .dp-pop,.coaching-dates .single .dp-pop{position:fixed;left:12px;right:12px;top:116px;max-height:calc(100dvh - 140px);overflow:auto}.coaching-dates .dp-main{width:auto}.coaching-dates .range-btn.big{max-width:100%;font-size:10px;padding:0 8px;gap:6px}.coaching-dates .dp-single-control .range-btn.big{min-width:40px}.coaching-dates .dp-grid button{height:36px}.coaching-dates .dp-rail button{font-size:11px}.coaching-dates .dp-foot .dp-sel{flex-basis:auto}}

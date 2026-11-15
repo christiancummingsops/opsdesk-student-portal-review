@@ -1,0 +1,146 @@
+/* ============================================================
+   COLOR TOKENS — OpsDesk, on Geist foundations
+   True-neutral grays (no cool/blue tint), restrained color.
+   A single accent — OpsDesk Blue #123FAF — carries links, focus,
+   primary actions and progress. No secondary decorative color.
+   Semantics stay muted. Light is the default; dark is opt-in via
+   [data-theme="dark"] (set by next-themes, not prefers-color-scheme
+   — explicit beats implicit so first paint is deterministic).
+
+   Ported verbatim from design-source/tokens/colors.css. The only
+   adaptation: the source's @media(prefers-color-scheme) block and
+   its redundant [data-theme="light"] re-pin are dropped — next-themes
+   already makes :root the light default and [data-theme="dark"] the
+   only override that matters here.
+   ============================================================ */
+:root {
+  color-scheme: light;
+
+  /* --- neutral scale (Geist gray, true neutral) --- */
+  --gray-100: #F2F2F2;
+  --gray-200: #EBEBEB;
+  --gray-300: #E6E6E6;
+  --gray-400: #EAEAEA;
+  --gray-500: #C9C9C9;
+  --gray-600: #A8A8A8;
+  --gray-700: #8F8F8F;
+  --gray-800: #7D7D7D;
+  --gray-900: #4D4D4D;
+  --gray-1000: #171717;
+
+  /* translucent neutrals — layer over any surface (borders, dividers, hovers) */
+  --gray-alpha-100: rgba(0,0,0,.05);
+  --gray-alpha-200: rgba(0,0,0,.08);
+  --gray-alpha-300: rgba(0,0,0,.10);
+  --gray-alpha-400: rgba(0,0,0,.08);
+  --gray-alpha-500: rgba(0,0,0,.21);
+  --gray-alpha-600: rgba(0,0,0,.24);
+  --gray-alpha-700: rgba(0,0,0,.44);
+  --gray-alpha-800: rgba(0,0,0,.51);
+  --gray-alpha-900: rgba(0,0,0,.70);
+  --gray-alpha-1000: rgba(0,0,0,.91);
+
+  /* --- surfaces --- */
+  --background-100: #FFFFFF;   /* cards, raised surfaces */
+  --background-200: #FAFAFA;   /* page ground, subtle separation */
+
+  /* --- accent — OpsDesk Blue scale (100 bg → 1000 deep) --- */
+  --blue-100: #ECEFFB;   /* soft background */
+  --blue-200: #DCE2F7;   /* hover background */
+  --blue-300: #C4CEF1;   /* active background */
+  --blue-400: #9DAEE7;   /* default border */
+  --blue-500: #6076D6;   /* hover border */
+  --blue-600: #2F51C4;   /* active border */
+  --blue-700: #123FAF;   /* solid fill — THE accent */
+  --blue-800: #0E339A;   /* solid fill, hover */
+  --blue-900: #0B2980;   /* solid fill, active */
+  --blue-1000: #081B54;  /* deep */
+
+  /* --- semantic accents (muted, high-contrast) --- */
+  --green-100: #ECFDEC; --green-700: #17803D; --green-900: #0F5C2C;
+  --amber-100: #FFF6DE; --amber-700: #9A6300; --amber-900: #6E4700;
+  --red-100:   #FFEEEF; --red-700:   #C4001B; --red-900:   #8F0014;
+
+  /* ============ SEMANTIC ALIASES ============ */
+  /* surfaces */
+  --ground:  var(--background-200);
+  --raise:   var(--background-100);
+  --sunk:    var(--gray-100);
+  /* text */
+  --ink:    var(--gray-1000);   /* primary text */
+  --ink-2:  var(--gray-900);    /* secondary text */
+  --ink-3:  var(--gray-700);    /* muted / captions */
+  --ink-disabled: var(--gray-600);
+  /* borders */
+  --line:   var(--gray-alpha-200);   /* default hairline */
+  --line-2: var(--gray-alpha-400);   /* control border */
+  --line-strong: var(--gray-alpha-500);
+  /* accent roles */
+  --accent:        var(--blue-700);
+  --accent-hover:  var(--blue-800);
+  --accent-active: var(--blue-900);
+  --accent-ink:    var(--blue-700);           /* links / accent text on light */
+  --accent-soft:   rgba(18,63,175,.08);        /* tinted fill */
+  --accent-line:   rgba(18,63,175,.24);        /* accent border */
+  --on-accent:     #FFFFFF;                     /* text on filled accent */
+  /* semantic */
+  --success:      var(--green-700);
+  --success-soft: rgba(23,128,61,.10);
+  --warning:      var(--amber-700);
+  --warning-soft: rgba(154,99,0,.12);
+  --danger:       var(--red-700);
+  --danger-soft:  rgba(196,0,27,.09);
+  --info:         var(--accent);
+  --info-soft:    var(--accent-soft);
+  /* focus */
+  --focus-ring:   var(--accent);
+
+  /* F18 fix: the .teamx/.frm/.pay/.prodx surface scopes each duplicate a
+     handful of tokens under their own names (--ok, --warn, --overlay) that
+     have no global equivalent. Radix portals modal content to
+     document.body, outside those scoped ancestors, so anything inside a
+     modal that reads these needs a global fallback — see
+     ../modal-portal.css. Values match the scoped originals exactly. */
+  --ok:           var(--success);
+  --ok-soft:      var(--success-soft);
+  --warn:         var(--warning);
+  --warn-soft:    var(--warning-soft);
+  --overlay:      rgba(0, 0, 0, .5);
+}
+
+/* Dark — explicit opt-in via [data-theme="dark"]. Only the raw scale +
+   accent/semantic tint variables need re-pinning here; --ground / --raise /
+   --sunk / --ink* / --line* / --success / --warning / --danger / --info all
+   reference the scale variables below, so they re-resolve automatically. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --gray-100: #1A1A1A; --gray-200: #1F1F1F; --gray-300: #292929;
+  --gray-400: #2E2E2E; --gray-500: #454545; --gray-600: #5C5C5C;
+  --gray-700: #7A7A7A; --gray-800: #A0A0A0; --gray-900: #B4B4B4; --gray-1000: #EDEDED;
+  --gray-alpha-100: rgba(255,255,255,.05); --gray-alpha-200: rgba(255,255,255,.09);
+  --gray-alpha-300: rgba(255,255,255,.12); --gray-alpha-400: rgba(255,255,255,.10);
+  --gray-alpha-500: rgba(255,255,255,.18); --gray-alpha-600: rgba(255,255,255,.24);
+  --gray-alpha-700: rgba(255,255,255,.44); --gray-alpha-800: rgba(255,255,255,.60);
+  --gray-alpha-900: rgba(255,255,255,.76); --gray-alpha-1000: rgba(255,255,255,.92);
+  --background-100: #111111; --background-200: #0A0A0A;
+
+  --blue-100: #0D1430; --blue-200: #131C40; --blue-300: #1A2453;
+  --blue-400: #22306E; --blue-500: #2E3F94; --blue-600: #3D51C2;
+  --blue-700: #123FAF; --blue-800: #6E82D8; --blue-900: #97A8E8; --blue-1000: #C2CEF4;
+
+  --green-100: #0C1F12; --green-700: #4CC463; --green-900: #7FE08D;
+  --amber-100: #24190A; --amber-700: #E0A03A; --amber-900: #F2C15E;
+  --red-100:   #2A0E10; --red-700:   #F26D6D; --red-900:   #F79A9A;
+
+  --accent-ink:  var(--blue-800);
+  --accent-soft: rgba(110,130,216,.16);
+  --accent-line: rgba(110,130,216,.28);
+  --on-accent:   #FFFFFF;
+  --success-soft: rgba(76,196,99,.14);
+  --warning-soft: rgba(224,160,58,.14);
+  --danger-soft:  rgba(242,109,109,.14);
+
+  /* --ok/--warn re-resolve automatically (alias --success/--warning above). */
+  --overlay: rgba(0, 0, 0, .65);
+}
